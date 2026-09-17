@@ -262,7 +262,7 @@
               value="${autoTitle}"
               required
             />
-            <span class="filename-suffix" id="filenameSuffix">_transcript</span>
+            <span class="filename-suffix" id="filenameSuffix"></span>
             <span class="filename-extension" id="filenameExtension">.vtt</span>
           </div>
           <div class="filename-hint">Enter a name for your transcript file</div>
@@ -304,13 +304,16 @@
       const extensionSpan = modal.querySelector('#filenameExtension');
       
       if (format === 'json') {
-        suffixSpan.textContent = '_transcript';
+        // suffixSpan.textContent = '_transcript';
+        suffixSpan.textContent = '';
         extensionSpan.textContent = '.json';
       } else if (format === 'vtt') {
-        suffixSpan.textContent = '_transcript';
+        // suffixSpan.textContent = '_transcript';
+        suffixSpan.textContent = '';
         extensionSpan.textContent = '.vtt';
       } else if (format === 'vtt-grouped') {
-        suffixSpan.textContent = '_transcript_grouped';
+        // suffixSpan.textContent = '_transcript_grouped';
+        suffixSpan.textContent = '';
         extensionSpan.textContent = '.txt';
       }
     }
@@ -724,23 +727,28 @@
 
     let outputData = transcriptData; // JSON by default
     let extension = '.json';
-    let suffix = '_transcript';
+    // let suffix = '_transcript';
+    let suffix = '';
     
     // Convert based on selected format
     if (selectedFormat === 'vtt') {
       outputData = vttData;
       extension = '.vtt';
-      suffix = '_transcript';
+      // suffix = '_transcript';
+      suffix = '';
     } else if (selectedFormat === 'vtt-grouped') {
       // Convert JSON to grouped format
       outputData = convertJSONToGrouped(transcriptData);
       extension = '.txt';
-      suffix = '_transcript_grouped';
+      // suffix = '_transcript_grouped';
+      suffix = '';
     }
 
     // Use custom filename from modal input
-    const sanitizedFilename = customFilename.replace(/[^a-z0-9\s]/gi, '_').toLowerCase();
-    const filename = `${sanitizedFilename}${suffix}${extension}`;
+    // const sanitizedFilename = customFilename.replace(/[^a-z0-9\s]/gi, '_').toLowerCase();
+    // const filename = `${sanitizedFilename}${suffix}${extension}`;
+    const sanitizedFilename = customFilename.replace(/[^a-z0-9\s]/gi, '_');
+    const filename = `${sanitizedFilename}${extension}`;
 
     // Download
     downloadDecryptedFile(outputData, filename);
